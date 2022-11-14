@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api")
 public record ExchangeRateController(ExchangeRateService exchangeRateService, Environment environment) {
-
-
+    
     @GetMapping("/exchange-rate/from/{from}/to/{to}")
     public ExchangeRate getExchangeRate(@PathVariable String from, @PathVariable String to) {
         ExchangeRate exchangeRate = exchangeRateService.getExchangeRateByFromAndTo(from, to);
