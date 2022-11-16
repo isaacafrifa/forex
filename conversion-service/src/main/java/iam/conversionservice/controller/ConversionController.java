@@ -1,7 +1,6 @@
 package iam.conversionservice.controller;
 
 import iam.conversionservice.entity.Conversion;
-import iam.conversionservice.feign.ExchangeRate;
 import iam.conversionservice.feign.ExchangeRateProxy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
