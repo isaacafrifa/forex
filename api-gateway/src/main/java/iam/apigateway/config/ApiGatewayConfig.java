@@ -16,12 +16,12 @@ public class ApiGatewayConfig {
                                 .addRequestParameter("MyParam", "myValue")
                         )
                         .uri("http://httpbin.org:80"))
-                .route(p -> p
-                        .path("/api/exchange-rate/**")
-                        .uri("lb://exchange-rate-service")) //the "lb" stands for load balance
-                .route(p -> p
-                        .path("/api/conversion/**")
-                        .uri("lb://conversion-service"))
+                .route("exchangeId",
+                        p -> p.path("/api/exchange-rate/**")
+                                .uri("lb://exchange-rate-service")) //the "lb" stands for load balance
+                .route("conversionId",
+                        p -> p.path("/api/conversion/**")
+                                .uri("lb://conversion-service"))
                 .build();
     }
 }
