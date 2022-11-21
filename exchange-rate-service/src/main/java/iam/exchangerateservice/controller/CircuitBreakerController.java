@@ -1,5 +1,6 @@
 package iam.exchangerateservice.controller;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -16,7 +17,8 @@ public class CircuitBreakerController {
     @GetMapping("/sample-api")
 //    @Retry(name = "sample-api",fallbackMethod = "getMessageFallback")
 //    @CircuitBreaker(name = "sample-api",fallbackMethod = "getMessageFallback")
-    @RateLimiter(name = "default")
+//    @RateLimiter(name = "default")
+    @Bulkhead(name = "default")
     public String getMessage(){
         log.info("Sample api call received");
 //        var forEntity = new RestTemplate()
