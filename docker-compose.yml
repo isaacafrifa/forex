@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  exchange-rate-service:
+    image: isaacafrifa/forex-exchange-rate-service:0.0.1-SNAPSHOT
+    mem_reservation: 700m
+    ports:
+      - "8000:8000"
+      - "8001:8000"
+    networks:
+      - forex-network
+
+networks:
+  forex-network:
