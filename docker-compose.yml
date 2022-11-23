@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  naming-service:
+    image: isaacafrifa/forex-naming-service:0.0.1-SNAPSHOT
+    mem_reservation: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - forex-network
+
   exchange-rate-service:
     image: isaacafrifa/forex-exchange-rate-service:0.0.1-SNAPSHOT
     mem_reservation: 700m
@@ -9,6 +17,14 @@ services:
       - "8001:8000"
     networks:
       - forex-network
+    depends_on:
+      - naming-service
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700m
 
 networks:
   forex-network:
