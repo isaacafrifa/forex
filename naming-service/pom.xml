@@ -60,6 +60,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Maven config to build docker image-->
+                    <image>
+                        <name>isaacafrifa/forex-${project.artifactId}:${project.version}</name>
+                        <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                    </image>
+                </configuration>
             </plugin>
         </plugins>
     </build>
