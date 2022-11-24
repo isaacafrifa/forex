@@ -9,6 +9,15 @@ services:
     networks:
       - forex-network
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    mem_reservation: 300m
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      forex-network:
+
   zipkin-server:
     image: openzipkin/zipkin
     mem_reservation: 300m
