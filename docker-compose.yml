@@ -9,6 +9,14 @@ services:
     networks:
       - forex-network
 
+  zipkin-server:
+    image: openzipkin/zipkin
+    mem_reservation: 300m
+    ports:
+      - "9411:9411"
+    networks:
+      - forex-network
+
   exchange-rate-service:
     image: isaacafrifa/forex-exchange-rate-service:0.0.1-SNAPSHOT
     mem_reservation: 700m
@@ -21,6 +29,7 @@ services:
       - naming-service
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+      SPRING.ZIPKIN.BASE-URL: http://zipkin-server:9411
 
   conversion-service:
     image: isaacafrifa/forex-conversion-service:0.0.1-SNAPSHOT
@@ -33,6 +42,7 @@ services:
       - naming-service
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+      SPRING.ZIPKIN.BASE-URL: http://zipkin-server:9411
 
   api-gateway:
     image: isaacafrifa/forex-api-gateway:0.0.1-SNAPSHOT
@@ -45,6 +55,7 @@ services:
       - naming-service
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+      SPRING.ZIPKIN.BASE-URL: http://zipkin-server:9411
       
 networks:
   forex-network:
