@@ -21,10 +21,30 @@ services:
       - naming-service
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 700m
 
+  conversion-service:
+    image: isaacafrifa/forex-conversion-service:0.0.1-SNAPSHOT
+    mem_reservation: 700m
+    ports:
+      - "8100:8100"
+    networks:
+      - forex-network
+    depends_on:
+      - naming-service
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+
+  api-gateway:
+    image: isaacafrifa/forex-api-gateway:0.0.1-SNAPSHOT
+    mem_reservation: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - forex-network
+    depends_on:
+      - naming-service
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-service:8761/eureka
+      
 networks:
   forex-network:
