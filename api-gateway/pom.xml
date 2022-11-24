@@ -80,6 +80,11 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <!-- Maven config to build docker image-->
+                    <image>
+                        <name>isaacafrifa/forex-${project.artifactId}:${project.version}</name>
+                        <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                    </image>
                 </configuration>
             </plugin>
         </plugins>
