@@ -3,35 +3,47 @@ version: '3.8'
 services:
   naming-service:
     image: isaacafrifa/forex-naming-service:0.0.1-SNAPSHOT
-    mem_reservation: 700m
     ports:
       - "8761:8761"
+    deploy:
+      resources:
+        limits:
+          memory: 700M
     networks:
       - forex-network
 
   rabbitmq:
     image: rabbitmq:3-management
-    mem_reservation: 300m
     ports:
       - "5672:5672"
       - "15672:15672"
+    deploy:
+      resources:
+        limits:
+          memory: 300M
     networks:
-      forex-network:
+      - forex-network
 
   zipkin-server:
     image: openzipkin/zipkin
-    mem_reservation: 300m
+    deploy:
+      resources:
+        limits:
+          memory: 300M
     ports:
       - "9411:9411"
     networks:
       - forex-network
+    restart: always #Restart if there is a problem starting up
 
   exchange-rate-service:
     image: isaacafrifa/forex-exchange-rate-service:0.0.1-SNAPSHOT
-    mem_reservation: 700m
+    deploy:
+      resources:
+        limits:
+          memory: 700M
     ports:
       - "8000:8000"
-      - "8001:8000"
     networks:
       - forex-network
     depends_on:
@@ -42,7 +54,10 @@ services:
 
   conversion-service:
     image: isaacafrifa/forex-conversion-service:0.0.1-SNAPSHOT
-    mem_reservation: 700m
+    deploy:
+      resources:
+        limits:
+          memory: 700M
     ports:
       - "8100:8100"
     networks:
@@ -55,7 +70,10 @@ services:
 
   api-gateway:
     image: isaacafrifa/forex-api-gateway:0.0.1-SNAPSHOT
-    mem_reservation: 700m
+    deploy:
+      resources:
+        limits:
+          memory: 700M
     ports:
       - "8765:8765"
     networks:
